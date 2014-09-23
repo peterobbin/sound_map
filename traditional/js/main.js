@@ -30,13 +30,20 @@ console.log("hey");
       mapOptions);
 
     setMarkers(map, sounds);
-}
 
-var sounds = [
+    // google.maps.event.addListener(setMarkers.marker, 'click', function() {
+    //   map.setZoom(18);
+    //   $("#sound-group").show();
+    //  map.setCenter(marker.getPosition());
+    //   $( ".banner" ).append( "<p>Test</p>" );
+    // });
+}
+    var sounds = [
    ['72th st Train Station', 40.77848, -73.98195, 1],
     ['Strawberry Fields', 40.77534, -73.97506, 2],
     ['Home', 40.77573, -73.97895, 3]
 ];
+
 
 // //.........................................
 function setMarkers(map, locations) {
@@ -73,15 +80,25 @@ function setMarkers(map, locations) {
         icon: image,
         title: sound[0],
         zIndex: sound[3],
-        animation: google.maps.Animation.DROP
+        //animation: google.maps.Animation.DROP
     });
+
+    google.maps.event.addListener(marker, 'click', function() {
+      map.setZoom(17);
+      var soundSwap = this.zIndex;
+      $('#player').replaceWith("<audio loop autoplay id = 'player' src='./audio/test"+ soundSwap + ".m4a' preload='auto' controls></audio>");
+      
+      $("#sound-group").show();
+      console.log(this.getPosition());
+      map.panTo(this.position);
+      // map.setCenter(this.getPosition());
+
+      
+    });
+
+
   }
-    google.maps.event.addListener(this, 'click', function() {
-    map.setZoom(18);
-    $("#sound-group").show();
-    map.setCenter(marker.getPosition());
-    $( ".banner" ).append( "<p>Test</p>" );
-  });
+
 }
 // //.........................................
 
@@ -133,21 +150,18 @@ function setMarkers(map, locations) {
   //   title: 'Click to zoom'
   // });
 
-  // google.maps.event.addListener(map, 'center_changed', function() {
-  //   // 3 seconds after the center of the map has changed, pan back to the
-  //   // marker.
-  //   window.setTimeout(function() {
-  //     map.panTo(marker.getPosition());
-  //   }, 3000);
-  // });
+
  //  var markerIcon = './img/marker.png'
  //  var myLatLng = new google.maps.LatLng(soundSources[1],soundSources[2]);
-	// var marker = new google.maps.Marker({
-	// 	position: myLatLng,
-	// 	map: map,
+  // var marker = new google.maps.Marker({
+  //  position: myLatLng,
+  //  map: map,
  //    icon:markerIcon,
-	// 	title:"MEMORIES"
-	// });
+  //  title:"MEMORIES"
+  // });
+
+
+
 
 
 
